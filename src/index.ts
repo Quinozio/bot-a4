@@ -102,7 +102,7 @@ bot.command(
 );
 if (process.env.NODE_ENV === "production") {
   const port = process.env.PORT ? +process.env.PORT : 3000;
-  const domain = "";
+  const domain = "https://bewildered-worm-zipper.cyclic.app";
   bot
     .launch({
       webhook: {
