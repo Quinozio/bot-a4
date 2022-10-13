@@ -1,5 +1,5 @@
 import { Markup } from "telegraf";
-import I18n from "telegraf-i18n";
+import I18n from "@edjopato/telegraf-i18n";
 import { RegularMenu } from "@quino/telegraf-menu";
 import { START_MENU_FILTERS } from "../const/start-menu.filters";
 import { MenuAction } from "../interfaces/commands.models";

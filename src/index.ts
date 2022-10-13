@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import * as path from "path";
 import { Telegraf, Composer, Scenes } from "telegraf";
-import I18n from "telegraf-i18n";
+import { I18n } from "@edjopato/telegraf-i18n";
 import { GenericMenu } from "@quino/telegraf-menu";
 import LocalSession from "telegraf-session-local";
 
@@ -30,7 +30,6 @@ const i18n = new I18n({
   sessionName: "session",
 });
 
-
 bot.use(session.middleware());
 bot.use(i18n.middleware());
 bot.use(initSession);
@@ -38,7 +37,6 @@ const stage = new Scenes.Stage<Scenes.SceneContext>([adminScene as any], {
   ttl: 10,
 });
 bot.use(stage.middleware() as any);
-
 
 bot.use(GenericMenu.middleware());
 
@@ -96,7 +94,6 @@ bot.action(
     initChangeLanguageMenu as any
   )
 );
-
 
 const adminIds = [452970611];
 bot.command(

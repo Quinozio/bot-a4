@@ -1,6 +1,6 @@
 import { DefaultCtx, GenericMenu } from "@quino/telegraf-menu";
 import { Scenes } from "telegraf";
-import I18nContext from "telegraf-i18n";
+import { I18nContext } from "@edjopato/telegraf-i18n";
 
 import { IServiceItem } from "./service.models";
 
