@@ -21,21 +21,13 @@ const fs = require("fs");
 dotenv.config();
 
 const bot = new Telegraf<CurrentCtx>(process.env.BOT_TOKEN ?? "");
-const dbPath = process.env.DB_FOLDER + "local.db.json";
-
-if (!fs.existsSync(dbPath)) {
-  fs.appendFile(dbPath, "", (err: string) => {
-    if (err) throw err;
-    console.log("Saved!");
-  });
-}
 
 const session = new LocalSession({
   database: process.env.DB_FOLDER + "local.db.json",
 });
 const i18n = new I18n({
   defaultLanguage: "it",
-  directory: path.resolve(__dirname, "i18n"),
+  directory: process.env.I18N_FOLDER || path.resolve(__dirname, "i18n"),
   useSession: true,
   sessionName: "session",
 });

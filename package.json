@@ -8,7 +8,7 @@
     "tsc": "npx tsc",
     "prepare": "npm run tsc",
     "start": "npx ts-node ./src/index.ts",
-    "start:dev": "node copy-i18n && npx nodemon"
+    "start:dev": "npx nodemon"
   },
   "author": "",
   "license": "ISC",
