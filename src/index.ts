@@ -16,10 +16,20 @@ import { initServicesMenu } from "./menu/services.menu";
 import { initServiceDetailMenu } from "./menu/service-detail.menu";
 import { initTrafficoDirectionMenu } from "./menu/traffico-direction.menu";
 import { adminScene } from "./scenes/admin.scenes";
+const fs = require("fs");
 
 dotenv.config();
 
 const bot = new Telegraf<CurrentCtx>(process.env.BOT_TOKEN ?? "");
+const dbPath = process.env.DB_FOLDER + "local.db.json";
+
+if (!fs.existsSync(dbPath)) {
+  fs.appendFile(dbPath, "", (err: string) => {
+    if (err) throw err;
+    console.log("Saved!");
+  });
+}
+
 const session = new LocalSession({
   database: process.env.DB_FOLDER + "local.db.json",
 });
