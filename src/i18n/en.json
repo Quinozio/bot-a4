@@ -1,0 +1,38 @@
+{
+  "menu": {
+    "menu": "🔎 Menu",
+    "back": "◀️ Indietro",
+    "start": {
+      "start": "Here is the menu for you:",
+      "button": {
+        "infoTraffico": "🛣 Traffic info",
+        "webcam": "🎥 Webcam",
+        "sos": "🆘 SOS",
+        "mancatiPagamenti": "💸 Mancati pagamenti",
+        "cantieri": "🏗️ Cantieri alta velocità",
+        "servizi": "⛽️ Services",
+        "settings": "⚙️ Settings"
+      }
+    },
+    "services": {
+      "start": "Ecco le aree di servizio: selezionane una per conoscere i servizi che offre."
+    },
+    "webcam": {
+      "start": "Scegli la webcam che vuoi visualizzare"
+    },
+    "settings": {
+      "start": "Here are the settings:",
+      "button": {
+        "changeLanguage": "🇬🇧 Change language"
+      }
+    },
+    "changeLanguage": {
+      "start": "Change the language:",
+      "success": "Language changed to 🇬🇧 English",
+      "button": {
+        "it": "🇮🇹 Italian",
+        "en": "🇬🇧 English"
+      }
+    }
+  }
+}

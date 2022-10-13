@@ -1,0 +1,48 @@
+{
+  "menu": {
+    "menu": "🔎 Menu",
+    "back": "◀️ Indietro",
+    "start": {
+      "start": "Ecco il menù principale: seleziona una voce per avere le informazioni che desideri",
+      "button": {
+        "infoTraffico": "🛣 Info traffico",
+        "webcam": "🎥 Webcam",
+        "sos": "🆘 SOS",
+        "mancatiPagamenti": "💸 Mancati pagamenti",
+        "cantieri": "🏗️ Cantieri alta velocità",
+        "servizi": "⛽️ Servizi",
+        "settings": "⚙️ Impostazioni"
+      }
+    },
+    "webcam": {
+      "start": "Scegli la webcam che vuoi visualizzare"
+    },
+    "settings": {
+      "start": "Ecco le impostazioni:",
+      "button": {
+        "changeLanguage": "🇮🇹 Cambia lingua"
+      }
+    },
+    "services": {
+      "start": "Ecco le aree di servizio: selezionane una per conoscere i servizi che offre."
+    },
+    "serviceDetail": {
+      "start": "Ecco i servizi"
+    },
+    "trafficoDirection": {
+      "start": "Seleziona la tua direzione di marcia: Ovest (verso Milano) o Est (verso Venezia).",
+      "button": {
+        "ovest": "⬅️ Ovest (Milano)",
+        "est": "➡️ Est (Venezia)"
+      }
+    },
+    "changeLanguage": {
+      "start": "Cambia la lingua:",
+      "success": "Lingua cambiata in 🇮🇹 Italiano",
+      "button": {
+        "it": "🇮🇹 Italiano",
+        "en": "🇬🇧 English"
+      }
+    }
+  }
+}
