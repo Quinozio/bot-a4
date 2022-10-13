@@ -31,5 +31,5 @@ export interface ISession {
 export type CurrentCtx = DefaultCtx & {
   i18n: I18nContext;
   session: ISession;
-  scene: Scenes.SceneContextScene<DefaultCtx, CurrentCtx>;
+  scene: Scenes.SceneContextScene<any, CurrentCtx>;
 };
