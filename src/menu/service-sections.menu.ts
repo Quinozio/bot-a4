@@ -29,7 +29,6 @@ export const initServiceSectionsMenu = async (ctx: CurrentCtx) => {
         } else if (state === MenuAction.SERVICES_RICARICA) {
           ctx.session.serviceSectionSelected = ServiceSectionEnum.RICARICA;
         }
-        console.log(state);
         return initServicesMenu(changeCtx);
       }
     },

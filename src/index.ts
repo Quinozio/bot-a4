@@ -17,13 +17,11 @@ import { initServiceDetailMenu } from "./menu/service-detail.menu";
 import { initTrafficoDirectionMenu } from "./menu/traffico-direction.menu";
 import { adminScene } from "./scenes/admin.scenes";
 import { initServiceSectionsMenu } from "./menu/service-sections.menu";
-const fs = require("fs");
 
 dotenv.config();
 
 const bot = new Telegraf<CurrentCtx>(process.env.BOT_TOKEN ?? "");
 
-console.log(__dirname, process.env.I18N_FOLDER);
 const session = new LocalSession({
   database: process.env.DB_FOLDER + "local.db.json",
 });

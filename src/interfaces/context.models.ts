@@ -1,8 +1,8 @@
-import { DefaultCtx, GenericMenu } from "@quino/telegraf-menu";
 import { Scenes } from "telegraf";
 import { I18nContext } from "@edjopato/telegraf-i18n";
 
 import { IServiceItem, ServiceSectionEnum } from "./service.models";
+import { GenericMenu, DefaultCtx } from "@quino/telegraf-menu";
 
 export interface IPosition {
   lat: string;

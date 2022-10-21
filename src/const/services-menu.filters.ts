@@ -10,7 +10,6 @@ import {
 export const SERVICES_MENU_FILTERS: (
   ctx: CurrentCtx
 ) => MenuFilters<MenuAction>[] = (ctx) => {
-  console.log(ctx.session.serviceSectionSelected);
   if (ctx.session.serviceSectionSelected && ctx.session.services) {
     const servicesBySection = ctx.session.services?.filter((service) =>
       service.services.some((service) =>

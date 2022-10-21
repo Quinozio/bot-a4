@@ -21,7 +21,8 @@ export const initServiceDetailMenu = async (
     replaceable: true,
     menuGetter: (menuCtx) => menuCtx.session.keyboardMenu,
     menuSetter: (menuCtx, menu) => (menuCtx.session.keyboardMenu = menu),
-    onChange(changeCtx, state) {
+    onChange: async (changeCtx, state) => {
+      await ctx.deleteMessage(changeCtx.session.keyboardMenu.messageId);
       if (state === MenuAction.BACK) {
         return initServicesMenu(changeCtx);
       }
