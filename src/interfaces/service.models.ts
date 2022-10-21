@@ -2,6 +2,18 @@ export interface IServiceDetail {
   id: string;
   url: string;
 }
+export enum ServiceSectionEnum {
+  AREE,
+  RICARICA,
+  METANO,
+  CAMPER,
+}
+export const serviceBySection = {
+  [ServiceSectionEnum.AREE]: [""],
+  [ServiceSectionEnum.RICARICA]: ["p-ricaricaelet"],
+  [ServiceSectionEnum.METANO]: ["metano", "gpl"],
+  [ServiceSectionEnum.CAMPER]: ["scaricocamper"],
+};
 
 export interface IServiceItem {
   lng: number;

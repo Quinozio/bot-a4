@@ -11,7 +11,7 @@ export const initWebcamDetailMenu = async (ctx: CurrentCtx, url: string) => {
   new RegularMenu<CurrentCtx, MenuAction>({
     action: MenuAction.WEBCAM_DETAIL,
     message: "",
-    customMessage: { type: "image", content: url },
+    customMessage: { type: "image", content: { url } },
     filters: BACK_MENU_FILTERS,
     replaceable: true,
     menuGetter: (menuCtx) => menuCtx.session.keyboardMenu,
@@ -25,5 +25,4 @@ export const initWebcamDetailMenu = async (ctx: CurrentCtx, url: string) => {
       }
     },
   }).sendMenu(ctx);
-};   
-  
+};

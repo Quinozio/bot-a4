@@ -2,7 +2,7 @@ import { DefaultCtx, GenericMenu } from "@quino/telegraf-menu";
 import { Scenes } from "telegraf";
 import { I18nContext } from "@edjopato/telegraf-i18n";
 
-import { IServiceItem } from "./service.models";
+import { IServiceItem, ServiceSectionEnum } from "./service.models";
 
 export interface IPosition {
   lat: string;
@@ -26,6 +26,7 @@ export interface ISession {
   userId: string;
   keyboardMenu: GenericMenu;
   services?: IServiceItem[];
+  serviceSectionSelected?: ServiceSectionEnum;
   serviceSelected: IServiceItem;
 }
 export type CurrentCtx = DefaultCtx & {

@@ -24,8 +24,14 @@
       }
     },
     "services": {
-      "start": "Ecco le aree di servizio: selezionane una per conoscere i servizi che offre."
-    },
+      "start": "Ecco le aree di servizio: selezionane una per conoscere i servizi che offre.",
+      "button": {
+        "aree": "🚾 Aree di servizio",
+        "ricarica": "🔋 Colonnine di ricarica",
+        "metano": "⛽ GPL/Metano",
+        "camper": "🚙 Camper"
+      }
+    }, 
     "serviceDetail": {
       "start": "Ecco i servizi"
     },

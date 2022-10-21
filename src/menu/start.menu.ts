@@ -8,6 +8,7 @@ import { initWebcamMenu } from "./webcam.menu";
 import { initSettingsMenu } from "./settings.menu";
 import { initServicesMenu } from "./services.menu";
 import { initTrafficoDirectionMenu } from "./traffico-direction.menu";
+import { initServiceSectionsMenu } from "./service-sections.menu";
 
 export const initStartMenu = (ctx: CurrentCtx, fn?: any, message?: string) => {
   new RegularMenu<CurrentCtx, MenuAction>({
@@ -24,7 +25,7 @@ export const initStartMenu = (ctx: CurrentCtx, fn?: any, message?: string) => {
         case MenuAction.SETTINGS:
           return initSettingsMenu(changeCtx);
         case MenuAction.SERVICES:
-          return initServicesMenu(changeCtx);
+          return initServiceSectionsMenu(changeCtx);
         case MenuAction.INFO_TRAFFICO:
           return initTrafficoDirectionMenu(changeCtx);
       }

@@ -16,6 +16,7 @@ import { initServicesMenu } from "./menu/services.menu";
 import { initServiceDetailMenu } from "./menu/service-detail.menu";
 import { initTrafficoDirectionMenu } from "./menu/traffico-direction.menu";
 import { adminScene } from "./scenes/admin.scenes";
+import { initServiceSectionsMenu } from "./menu/service-sections.menu";
 const fs = require("fs");
 
 dotenv.config();
@@ -73,6 +74,13 @@ bot.action(
   new RegExp(MenuAction.SERVICES),
   GenericMenu.onAction(
     (ctx: any) => ctx.session.keyboardMenu,
+    initServiceSectionsMenu as any
+  )
+);
+bot.action(
+  new RegExp(MenuAction.SERVICES),
+  GenericMenu.onAction(
+    (ctx: any) => ctx.session.keyboardMenu,
     initServicesMenu as any
   )
 );
@@ -103,22 +111,9 @@ bot.command(
   "admin",
   Composer.acl(adminIds, (ctx) => ctx.scene.enter("adminScene"))
 );
-if (process.env.NODE_ENV === "production") {
-  const port = process.env.PORT ? +process.env.PORT : 3000;
-  const domain = "https://bewildered-worm-zipper.cyclic.app/";
-  bot
-    .launch({
-      webhook: {
-        domain,
-        port,
-      },
-    })
-    .then(() => console.log("Webhook bot listening on port", port));
-} else {
-  bot.launch();
-}
+bot.launch();
 
-console.log("Bot is running!");
+console.log("Bot is running da qua?!");
 
 process.on("unhandledRejection", (err) => {
   console.log("Caught exception: " + err);

@@ -9,11 +9,15 @@ import { initServicesMenu } from "./services.menu";
 import { initStartMenu } from "./start.menu";
 import { initWebcamMenu } from "./webcam.menu";
 
-export const initServiceDetailMenu = async (ctx: CurrentCtx) => {
+export const initServiceDetailMenu = async (
+  ctx: CurrentCtx,
+  source: string
+) => {
   new RegularMenu<CurrentCtx, MenuAction>({
     action: MenuAction.SERVICE_DETAIL,
     message: "menu.serviceDetail.start",
-    filters: SERVICE_DETAIL_MENU_FILTERS(ctx),
+    customMessage: { type: "image", content: { source } },
+    filters: BACK_MENU_FILTERS,
     replaceable: true,
     menuGetter: (menuCtx) => menuCtx.session.keyboardMenu,
     menuSetter: (menuCtx, menu) => (menuCtx.session.keyboardMenu = menu),
