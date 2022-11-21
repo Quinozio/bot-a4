@@ -10,13 +10,21 @@ import {
 export const SERVICES_MENU_FILTERS: (
   ctx: CurrentCtx
 ) => MenuFilters<MenuAction>[] = (ctx) => {
-  if (ctx.session.serviceSectionSelected && ctx.session.services) {
+  if (ctx.session.serviceSectionSelected != null && ctx.session.services) {
     const servicesBySection = ctx.session.services?.filter((service) =>
-      service.services.some((service) =>
-        serviceBySection[
+      service.services.some((service) => {
+        const filters =
+          serviceBySection[
+            ctx.session.serviceSectionSelected as ServiceSectionEnum
+          ];
+
+        if (filters[0] === "all") {
+          return true;
+        }
+        return serviceBySection[
           ctx.session.serviceSectionSelected as ServiceSectionEnum
-        ].includes(service.id)
-      )
+        ].includes(service.id);
+      })
     );
     const buttons = servicesBySection.map(
       (item) => new KeyboardButton(item.name, item.name as MenuAction)

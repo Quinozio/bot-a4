@@ -8,8 +8,9 @@ export enum ServiceSectionEnum {
   METANO,
   CAMPER,
 }
+
 export const serviceBySection = {
-  [ServiceSectionEnum.AREE]: [""],
+  [ServiceSectionEnum.AREE]: ["all"],
   [ServiceSectionEnum.RICARICA]: ["p-ricaricaelet"],
   [ServiceSectionEnum.METANO]: ["metano", "gpl"],
   [ServiceSectionEnum.CAMPER]: ["scaricocamper"],

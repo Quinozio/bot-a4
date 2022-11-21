@@ -1,7 +1,29 @@
 {
+  "traffico": {
+    "infoviabilita": "Infoviabilità",
+    "direzione": "Direzione: ",
+    "entrambeDirezioni": "entrambe le direzioni",
+    "ora": "Ora",
+    "siSegnala": "Si segnala ",
+    "dalle": "Dalle ore",
+    "alle": "Alle ore",
+    "del": "del",
+    "chiusuraCausa": "chiusura causa",
+    "segnalaCantiere": "si segnala cantiere",
+    "mobile": "mobile ",
+    "causaIncidente": "causa incidente ",
+    "causa": "causa ",
+    "tra": "tra",
+    "a": "a",
+    "e": "e"
+  },
   "menu": {
     "menu": "🔎 Menu",
     "back": "◀️ Indietro",
+    "profilazione": {
+      "start": "Per iniziare, seleziona la tua categoria: ",
+      "button": { "leggero": "🚗 Mezzo leggero", "pesante": "🚛 Mezzo pesante" }
+    },
     "start": {
       "start": "Ecco il menù principale: seleziona una voce per avere le informazioni che desideri",
       "button": {
@@ -10,6 +32,7 @@
         "sos": "🆘 SOS",
         "mancatiPagamenti": "💸 Mancati pagamenti",
         "cantieri": "🏗️ Cantieri alta velocità",
+        "infoCantieri": "ℹ️ Info cantieri",
         "servizi": "⛽️ Servizi",
         "settings": "⚙️ Impostazioni"
       }
@@ -31,7 +54,7 @@
         "metano": "⛽ GPL/Metano",
         "camper": "🚙 Camper"
       }
-    }, 
+    },
     "serviceDetail": {
       "start": "Ecco i servizi"
     },

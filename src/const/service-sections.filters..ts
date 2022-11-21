@@ -9,9 +9,7 @@ export const SERVICES_SECTION_FILTERS: (
   ctx: CurrentCtx
 ) => Promise<MenuFilters<MenuAction>[]> = async (ctx) => {
   ctx.session.services = [];
-  const res = await fetch(
-    "https://inviaggio.autobspd.it/o/map-rest/rest-areas/A4AAA"
-  );
+  const res = await fetch(`${process.env.API_URL}/o/map-rest/rest-areas/A4AAA`);
   const json: IServiceItem[] = await res.json();
   ctx.session.services = [...json];
   return [

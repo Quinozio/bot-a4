@@ -1,28 +1,23 @@
-import { readFileSync } from "fs";
-import path from "path";
 import { Markup, Scenes } from "telegraf";
 
-import { CurrentCtx, ILocalDb } from "../interfaces/context.models";
+import { CurrentCtx, User } from "../interfaces/context.models";
 
 export const adminScene = new Scenes.BaseScene<CurrentCtx>("adminScene");
 
 adminScene.enter(async (ctx) => {
   const text = "Scrivi l'avviso che vuoi inviare a tutti gli utenti:";
-  return await ctx.replyWithMarkdown(text);
+  return await ctx.replyWithMarkdownV2(text);
 });
 
 adminScene.action("Si", async (ctx) => {
-  const dbRaw = readFileSync(
-    path.resolve(__dirname, "../../local.db.json"),
-    "utf-8"
+  global.database.each(
+    "SELECT userId FROM user WHERE notifiche = 1",
+    async (err: string, row: User) => {
+      const message = await ctx.telegram.sendMessage(row.userId, messageToSend);
+      ctx.telegram.unpinAllChatMessages(message.chat.id);
+      ctx.telegram.pinChatMessage(row.userId, message.message_id);
+    }
   );
-  const db: ILocalDb = JSON.parse(dbRaw);
-  const userIds = db.sessions.map((session) => session.id.split(":")[0]);
-  userIds.forEach(async (userId) => {
-    console.log(userId);
-    ctx.telegram.sendMessage(userId, messageToSend);
-    // ctx.telegram.pinChatMessage(userId, message.message_id);
-  });
   await ctx.reply("Messaggio inviato!");
   return ctx.scene.leave();
 });

@@ -6,7 +6,7 @@ export const WEBCAM_MENU_FILTERS: () => Promise<
   MenuFilters<MenuAction>[]
 > = async () => {
   const res = await fetch(
-    "https://inviaggio.autobspd.it/o/map-rest/webcam/A4AAA"
+    `${process.env.API_URL}/o/map-rest/webcam/A4AAA`
   );
   const json: any[] = await res.json();
   const buttons = json

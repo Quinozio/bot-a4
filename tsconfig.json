@@ -1,9 +1,14 @@
 {
+  "ts-node": {
+    "files": true
+  },
+  // "include": ["src/types/global.d.ts"],
+  // "files": ["src/types/global.d.ts"],
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
     "lib": ["ES2021"],
-    "types": ["node"],
+    "types": ["node", "jest"],
     "allowJs": true,
     "skipLibCheck": true,
     "outDir": "build",

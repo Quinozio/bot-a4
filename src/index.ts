@@ -17,6 +17,8 @@ import { initServiceDetailMenu } from "./menu/service-detail.menu";
 import { initTrafficoDirectionMenu } from "./menu/traffico-direction.menu";
 import { adminScene } from "./scenes/admin.scenes";
 import { initServiceSectionsMenu } from "./menu/service-sections.menu";
+import { Database } from "sqlite3";
+import { startCommand } from "./commands/start.command";
 
 dotenv.config();
 
@@ -31,6 +33,16 @@ const i18n = new I18n({
   useSession: true,
   sessionName: "session",
 });
+const db = new Database("db");
+
+const createDatabase = () => {
+  db.serialize(() => {
+    db.run("CREATE TABLE IF NOT EXISTS user (userId TEXT, notifiche INTEGER)");
+    global.database = db;
+  });
+};
+
+createDatabase();
 
 bot.use(session.middleware());
 bot.use(i18n.middleware());
@@ -44,16 +56,17 @@ bot.use(GenericMenu.middleware());
 
 bot.telegram.setMyCommands(commands);
 
-bot.command(MenuAction.START, initStartMenu as any);
+bot.command(MenuAction.START, startCommand as any);
 bot.command(MenuAction.MENU, initStartMenu as any);
 bot.command(MenuAction.SETTINGS, initSettingsMenu as any);
-bot.action(
-  new RegExp(MenuAction.START),
-  GenericMenu.onAction(
-    (ctx: any) => ctx.session.keyboardMenu,
-    initStartMenu as any
-  )
-);
+
+// bot.action(
+//   new RegExp(MenuAction.START),
+//   GenericMenu.onAction(
+//     (ctx: any) => ctx.session.keyboardMenu,
+//     initStartMenu as any
+//   )
+// );
 bot.action(
   new RegExp(MenuAction.MENU),
   GenericMenu.onAction(
@@ -109,6 +122,13 @@ bot.command(
   "admin",
   Composer.acl(adminIds, (ctx) => ctx.scene.enter("adminScene"))
 );
+bot.command(
+  "deleteDatabase",
+  Composer.acl(adminIds, (ctx) => {
+    db.run("DROP TABLE IF EXISTS user");
+    createDatabase();
+  })
+);
 bot.launch();
 
 console.log("Bot is running da qua?!");
@@ -119,5 +139,11 @@ process.on("unhandledRejection", (err) => {
 process.on("uncaughtException", (err) => {
   console.log("Caught exception: " + err);
 });
-process.once("SIGINT", () => bot.stop("SIGINT"));
-process.once("SIGTERM", () => bot.stop("SIGTERM"));
+process.once("SIGINT", () => {
+  bot.stop("SIGINT");
+  db.close();
+});
+process.once("SIGTERM", () => {
+  bot.stop("SIGTERM");
+  db.close();
+});

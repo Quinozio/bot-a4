@@ -34,3 +34,8 @@ export type CurrentCtx = DefaultCtx & {
   session: ISession;
   scene: Scenes.SceneContextScene<any, CurrentCtx>;
 };
+
+export type User = {
+  userId: string;
+  notifiche: boolean;
+};

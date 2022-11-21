@@ -10,12 +10,22 @@ export interface IEventDetail {
   CORSIA2: boolean;
   CODICE_LOCAZIONE: number;
   SOTTOTIPO: string;
+  CONSEGUENZE_TRAFFICO: string;
   DESCRIZIONE: string;
   TIPOLOGIA: string;
   VIA_RIFERIMENTO: string;
 }
+export enum EventType {
+  "METEO" = "METEO",
+  "TRAFFICO" = "TRAFFICO",
+  "CHIUSURA" = "CHIUSURA",
+  "CANTIERE" = "CANTIERE",
+  "INCIDENTE" = "INCIDENTE",
+}
 export interface IEvent {
   INIZIO: string;
+  FINE: string;
+  CAUSALE: string;
   ID_SITUAZIONE: number;
   DATAORA: string;
   KM_INIZ: number;
@@ -23,8 +33,11 @@ export interface IEvent {
   DIR: string;
   COORD_CERTE: boolean;
   PROGRESSIVO: number;
-  TIPO: string;
+  TIPO: EventType;
   ID: any;
+  CAUSA: string;
+  DATA_ORA_CHIUSURA: string;
+  DATA_ORA_APERTURA: string;
   AFFECTED_PATH_COORDS: ICoord[];
   DETTAGLIO: IEventDetail;
   DESCRIZIONE_GEO: string;
