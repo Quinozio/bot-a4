@@ -9,6 +9,7 @@ import { initSettingsMenu } from "./settings.menu";
 import { initServicesMenu } from "./services.menu";
 import { initTrafficoDirectionMenu } from "./traffico-direction.menu";
 import { initServiceSectionsMenu } from "./service-sections.menu";
+import { initCantieriMenu } from "./cantieri.menu";
 
 export const initStartMenu = (ctx: CurrentCtx, fn?: any, message?: string) => {
   new RegularMenu<CurrentCtx, MenuAction>({
@@ -26,6 +27,8 @@ export const initStartMenu = (ctx: CurrentCtx, fn?: any, message?: string) => {
           return initSettingsMenu(changeCtx);
         case MenuAction.SERVICES:
           return initServiceSectionsMenu(changeCtx);
+        case MenuAction.CANTIERI_ALTA_VELOCITA:
+          return initCantieriMenu(changeCtx);
         case MenuAction.INFO_TRAFFICO:
           return initTrafficoDirectionMenu(changeCtx);
       }

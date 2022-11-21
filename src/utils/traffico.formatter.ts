@@ -1,7 +1,7 @@
 import { CurrentCtx } from "../interfaces/context.models";
 import { EventType, IEvent } from "../interfaces/events.models";
 import { getDate, getTime } from "./date.utils";
-import { CASELLI_KM } from "./geografia.utils";
+import { CASELLI_KM, CODICI_GEO_ESCLUSI } from "./geografia.utils";
 import { capitalizeWords } from "./string.utils";
 
 export const eventiEmoticon = {
@@ -12,14 +12,15 @@ export const eventiEmoticon = {
   [EventType.CANTIERE]: "🚧",
 };
 export const formatEvents = (ctx: CurrentCtx, events: IEvent[]) => {
-  return events?.map((event) => formatEvent(ctx, event));
+  return events
+    .filter((event) => !CODICI_GEO_ESCLUSI.includes(event.CODICE_GEO))
+    .map((event) => formatEvent(ctx, event));
 };
 export const formatEvent = (ctx: CurrentCtx, event: IEvent) => {
   const {
     TIPO,
     KM_INIZ,
     KM_FIN,
-    DESCRIZIONE,
     DIR,
     DATAORA,
     DESCRIZIONE_GEO,

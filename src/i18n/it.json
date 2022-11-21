@@ -1,7 +1,7 @@
 {
   "traffico": {
     "infoviabilita": "Infoviabilità",
-    "direzione": "Direzione: ",
+    "direzione": "Direzione:",
     "entrambeDirezioni": "entrambe le direzioni",
     "ora": "Ora",
     "siSegnala": "Si segnala ",
@@ -17,6 +17,7 @@
     "a": "a",
     "e": "e"
   },
+  
   "menu": {
     "menu": "🔎 Menu",
     "back": "◀️ Indietro",

@@ -19,6 +19,7 @@ import { adminScene } from "./scenes/admin.scenes";
 import { initServiceSectionsMenu } from "./menu/service-sections.menu";
 import { Database } from "sqlite3";
 import { startCommand } from "./commands/start.command";
+import { initCantieriMenu } from "./menu/cantieri.menu";
 
 dotenv.config();
 
@@ -107,6 +108,13 @@ bot.action(
   GenericMenu.onAction(
     (ctx: any) => ctx.session.keyboardMenu,
     initTrafficoDirectionMenu as any
+  )
+);
+bot.action(
+  new RegExp(MenuAction.CANTIERI_ALTA_VELOCITA),
+  GenericMenu.onAction(
+    (ctx: any) => ctx.session.keyboardMenu,
+    initCantieriMenu as any
   )
 );
 bot.action(
