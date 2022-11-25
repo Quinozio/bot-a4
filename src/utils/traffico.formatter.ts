@@ -49,18 +49,23 @@ export const formatEvent = (ctx: CurrentCtx, event: IEvent) => {
   }
 
   let description = "";
+
+  const geo = hasInfoKm
+    ? getInfoGeo(ctx, KM_INIZ, KM_FIN)
+    : `${ctx.i18n.t("traffico.a")} ${DESCRIZIONE_GEO}`;
+
   switch (TIPO) {
     case EventType.METEO: {
       const ora = `${ctx.i18n.t("traffico.ora")} ${getTime(DATAORA)} - `;
       const dettaglio = `${ctx.i18n.t("traffico.siSegnala")} ${
         DETTAGLIO.SOTTOTIPO
-      }`;
+      } ${geo}`;
       description = ora + dettaglio;
       break;
     }
     case EventType.TRAFFICO: {
       const ora = `${ctx.i18n.t("traffico.ora")} ${getTime(DATAORA)} - `;
-      const dettaglio = `${DETTAGLIO.SOTTOTIPO} ${ctx.i18n.t(
+      const dettaglio = `${DETTAGLIO.SOTTOTIPO} ${geo} ${ctx.i18n.t(
         "traffico.causa"
       )} ${CAUSA} `;
       description = ora + dettaglio;
@@ -70,30 +75,31 @@ export const formatEvent = (ctx: CurrentCtx, event: IEvent) => {
       const dalle = `${ctx.i18n.t("traffico.dalle")} ${getTime(
         DATA_ORA_CHIUSURA
       )} ${ctx.i18n.t("traffico.del")} ${getDate(DATA_ORA_CHIUSURA)} `;
-      const alle = `${ctx.i18n.t("traffico.dalle")} ${getTime(
+      const alle = `${ctx.i18n.t("traffico.alle")} ${getTime(
         DATA_ORA_APERTURA
       )} ${ctx.i18n.t("traffico.del")} ${getDate(DATA_ORA_APERTURA)} `;
-      const dettaglio = `${ctx.i18n.t("traffico.chiusuraCausa")} ${CAUSALE}`;
+      const dettaglio = `${ctx.i18n.t("traffico.chiusura")} ${geo} ${ctx.i18n.t(
+        "traffico.causa"
+      )} ${CAUSALE}`;
       description = dalle + alle + dettaglio;
       break;
     }
     case EventType.CANTIERE: {
-      console.log(INIZIO);
       const dalle = `${ctx.i18n.t("traffico.dalle")} ${getTime(
         INIZIO
       )} ${ctx.i18n.t("traffico.del")} ${getDate(INIZIO)} `;
       const alle = `${ctx.i18n.t("traffico.dalle")} ${getTime(
         FINE
       )} ${ctx.i18n.t("traffico.del")} ${getDate(FINE)} `;
-      const dettaglio = `${ctx.i18n.t("traffico.segnalaCantiere")} ${
+      const dettaglio = `${ctx.i18n.t("traffico.segnalaCantiere")}${
         DETTAGLIO.SOTTOTIPO === "MOBILE" ? ctx.i18n.t("traffico.mobile") : ""
-      }`;
+      } ${geo}`;
       description = dalle + (FINE ? alle : "") + dettaglio;
       break;
     }
     case EventType.INCIDENTE: {
       const ora = `${ctx.i18n.t("traffico.ora")} ${getTime(DATAORA)} - `;
-      const dettaglio = `${DETTAGLIO.CONSEGUENZE_TRAFFICO} ${ctx.i18n.t(
+      const dettaglio = `${DETTAGLIO.CONSEGUENZE_TRAFFICO} ${geo} ${ctx.i18n.t(
         "traffico.causaIncidente"
       )}`;
       description = ora + dettaglio;
@@ -102,32 +108,63 @@ export const formatEvent = (ctx: CurrentCtx, event: IEvent) => {
     default:
       break;
   }
-  console.log(direction);
 
-  const geo = hasInfoKm
-    ? getInfoGeo(ctx, KM_INIZ, KM_FIN)
-    : `${ctx.i18n.t("traffico.a")} ${DESCRIZIONE_GEO}`;
   // const description = event.DESCRIZIONE.replaceAll("<br>", "\n");
-  return `${heading}\n\n${km}${direction}${description}${geo}`;
+  return `${heading}\n\n${km}${direction}${description}`;
 };
 
-const getInfoGeo = (ctx: CurrentCtx, KM_INIZ: number, KM_FIN: number) => {
+export const getInfoCaselli = (KM_INIZ: number, KM_FIN: number) => {
   let casIniziale = "";
   let casFinale = "";
+
+  let kmIniziale = parseInt("" + KM_INIZ);
+  let kmFinale = parseInt("" + KM_FIN);
+  let isOpposite = false;
+  if (KM_INIZ > KM_FIN) {
+    isOpposite = true;
+    kmIniziale = kmFinale;
+    kmFinale = parseInt("" + KM_INIZ);
+  }
+
   CASELLI_KM.forEach((km, index) => {
     if (index > 0) {
-      const kmPrecedente = Object.keys(CASELLI_KM[index - 1])[0];
-      const kmAttuale = Object.keys(km)[0];
-      if (KM_INIZ > +kmPrecedente && KM_INIZ < +kmAttuale) {
-        casIniziale += km[kmAttuale];
+      const kmIdPrecedente = Object.keys(CASELLI_KM[index - 1])[0];
+      const kmPrecedente = parseInt(kmIdPrecedente);
+      const kmId = Object.keys(km)[0];
+      const kmAttuale = parseInt(kmId);
+
+      if (
+        kmIniziale >= kmPrecedente &&
+        kmIniziale <= kmAttuale &&
+        (isOpposite ? true : !casIniziale)
+      ) {
+        console.log(kmIniziale, kmPrecedente, kmAttuale);
+        casIniziale = isOpposite
+          ? CASELLI_KM[index - 1][kmIdPrecedente]
+          : km[kmId];
       }
-      if (KM_FIN > +kmPrecedente && KM_INIZ < +kmAttuale) {
-        casFinale += km[kmAttuale];
+      if (
+        kmFinale >= kmPrecedente &&
+        kmFinale <= kmAttuale &&
+        (isOpposite ? true : !casFinale)
+      ) {
+        casFinale = isOpposite
+          ? CASELLI_KM[index - 1][kmIdPrecedente]
+          : km[kmId];
       }
     }
   });
-  console.log(KM_INIZ, KM_FIN);
-  console.log(casIniziale, casFinale);
+  const casInizialeCopy = casIniziale;
+  const casFinaleCopy = casFinale;
+  casIniziale = isOpposite ? casFinaleCopy : casInizialeCopy;
+  casFinale = isOpposite ? casInizialeCopy : casFinaleCopy;
+  return {
+    casIniziale: capitalizeWords(casIniziale),
+    casFinale: capitalizeWords(casFinale),
+  };
+};
+const getInfoGeo = (ctx: CurrentCtx, KM_INIZ: number, KM_FIN: number) => {
+  const { casIniziale, casFinale } = getInfoCaselli(KM_INIZ, KM_FIN);
   if (casFinale && casIniziale !== casFinale) {
     return `${ctx.i18n.t("traffico.tra")} ${capitalizeWords(
       casIniziale

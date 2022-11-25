@@ -20,6 +20,7 @@ import { initServiceSectionsMenu } from "./menu/service-sections.menu";
 import { Database } from "sqlite3";
 import { startCommand } from "./commands/start.command";
 import { initCantieriMenu } from "./menu/cantieri.menu";
+import { adminIds } from "./utils/admin.utils";
 
 dotenv.config();
 
@@ -125,7 +126,6 @@ bot.action(
   )
 );
 
-const adminIds = [452970611];
 bot.command(
   "admin",
   Composer.acl(adminIds, (ctx) => ctx.scene.enter("adminScene"))
