@@ -26,6 +26,12 @@
       "startSettings": "Seleziona la tua categoria: ",
       "button": { "leggero": "🚗 Mezzo leggero", "pesante": "🚛 Mezzo pesante" }
     },
+    "webcamDirection": {
+      "button": {
+        "a4": "A4",
+        "a31": "A31"
+      }
+    },
     "start": {
       "start": "Ecco il menù principale: seleziona una voce per avere le informazioni che desideri",
       "button": {

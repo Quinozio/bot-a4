@@ -25,6 +25,7 @@ export interface ISession {
   language: string;
   userId: string;
   keyboardMenu: GenericMenu;
+  webcamDirectionSelected: string;
   services?: IServiceItem[];
   serviceSectionSelected?: ServiceSectionEnum;
   serviceSelected: IServiceItem;

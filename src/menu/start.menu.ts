@@ -10,6 +10,7 @@ import { initServicesMenu } from "./services.menu";
 import { initTrafficoDirectionMenu } from "./traffico-direction.menu";
 import { initServiceSectionsMenu } from "./service-sections.menu";
 import { initCantieriMenu } from "./cantieri.menu";
+import { initWebcamDirectionMenu } from "./webcam-direction.menu";
 
 export const initStartMenu = (ctx: CurrentCtx, fn?: any, message?: string) => {
   new RegularMenu<CurrentCtx, MenuAction>({
@@ -21,8 +22,8 @@ export const initStartMenu = (ctx: CurrentCtx, fn?: any, message?: string) => {
     menuSetter: (menuCtx, menu) => (menuCtx.session.keyboardMenu = menu),
     onChange(changeCtx, state) {
       switch (state) {
-        case MenuAction.WEBCAM:
-          return initWebcamMenu(changeCtx);
+        case MenuAction.WEBCAM_DIRECTION:
+          return initWebcamDirectionMenu(changeCtx);
         case MenuAction.SETTINGS:
           return initSettingsMenu(changeCtx);
         case MenuAction.SERVICES:

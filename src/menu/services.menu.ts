@@ -1,16 +1,13 @@
-import { KeyboardButton, RegularMenu } from "@quino/telegraf-menu";
-import { Markup } from "telegraf";
-import { SERVICES_MENU_FILTERS } from "../const/services-menu.filters";
+import { RegularMenu } from "@quino/telegraf-menu";
+import joinImages from "join-images";
+import fetch from "node-fetch";
 
-import { WEBCAM_MENU_FILTERS } from "../const/webcam-menu.filters";
+import { SERVICES_MENU_FILTERS } from "../const/services-menu.filters";
 import { MenuAction } from "../interfaces/commands.models";
 import { CurrentCtx } from "../interfaces/context.models";
 import { initServiceDetailMenu } from "./service-detail.menu";
 import { initServiceSectionsMenu } from "./service-sections.menu";
 import { initStartMenu } from "./start.menu";
-import { initWebcamDetailMenu } from "./webcam-detail.menu";
-import joinImages from "join-images";
-import fetch from "node-fetch";
 
 export const initServicesMenu = async (ctx: CurrentCtx) => {
   new RegularMenu<CurrentCtx, MenuAction>({

@@ -7,7 +7,7 @@ export const START_MENU_FILTERS: MenuFilters<MenuAction>[] = [
       "menu.start.button.infoTraffico",
       MenuAction.INFO_TRAFFICO
     ),
-    new KeyboardButton("menu.start.button.webcam", MenuAction.WEBCAM),
+    new KeyboardButton("menu.start.button.webcam", MenuAction.WEBCAM_DIRECTION),
   ],
   [
     new KeyboardButton(

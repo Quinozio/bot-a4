@@ -1,12 +1,16 @@
 import { MenuFilters, KeyboardButton } from "@quino/telegraf-menu";
 import fetch from "node-fetch";
 import { MenuAction } from "../interfaces/commands.models";
+import { CurrentCtx } from "../interfaces/context.models";
 import { IWebcam } from "../interfaces/webcam.models";
 
-export const WEBCAM_MENU_FILTERS: () => Promise<
-  MenuFilters<MenuAction>[]
-> = async () => {
-  const res = await fetch(`${process.env.API_URL}/o/map-rest/webcam/A4AAA`);
+export const WEBCAM_MENU_FILTERS: (
+  ctx: CurrentCtx
+) => Promise<MenuFilters<MenuAction>[]> = async (ctx) => {
+  const direction = ctx.session.webcamDirectionSelected;
+  const res = await fetch(
+    `${process.env.API_URL}/o/map-rest/webcam/${direction}`
+  );
   const json: IWebcam[] = await res.json();
   console.log(json);
 
@@ -22,6 +26,10 @@ export const WEBCAM_MENU_FILTERS: () => Promise<
     "TVCIE328-Est",
     "TVCIE336-Est",
     "TVCIE336-Est",
+
+    "TVCIN088-Sud",
+    "TVCIS061-Sud",
+    "TVCIN053-Nord",
   ];
   const webcams = json.filter((item) => listWebcamAttive.includes(item.id));
   const buttons = webcams.map(
@@ -33,6 +41,7 @@ export const WEBCAM_MENU_FILTERS: () => Promise<
     const chunk = buttons.slice(i, i + rowSize);
     rows.push(chunk);
   }
+  rows.push([new KeyboardButton("menu.back", MenuAction.BACK)]);
   rows.push([new KeyboardButton("menu.menu", MenuAction.MENU)]);
   return rows;
 };

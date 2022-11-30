@@ -22,6 +22,7 @@ import { startCommand } from "./commands/start.command";
 import { initCantieriMenu } from "./menu/cantieri.menu";
 import { adminIds } from "./utils/admin.utils";
 import { initProfilazioneMenu } from "./menu/profilazione.menu";
+import { initWebcamDirectionMenu } from "./menu/webcam-direction.menu";
 
 dotenv.config();
 
@@ -40,7 +41,9 @@ const db = new Database("db");
 
 const createDatabase = () => {
   db.serialize(() => {
-    db.run("CREATE TABLE IF NOT EXISTS user (userId TEXT UNIQUE, notifiche INTEGER)");
+    db.run(
+      "CREATE TABLE IF NOT EXISTS user (userId TEXT UNIQUE, notifiche INTEGER)"
+    );
     global.database = db;
   });
 };
@@ -75,6 +78,13 @@ bot.action(
   GenericMenu.onAction(
     (ctx: any) => ctx.session.keyboardMenu,
     initStartMenu as any
+  )
+);
+bot.action(
+  new RegExp(MenuAction.WEBCAM_DIRECTION),
+  GenericMenu.onAction(
+    (ctx: any) => ctx.session.keyboardMenu,
+    initWebcamDirectionMenu as any
   )
 );
 bot.action(
