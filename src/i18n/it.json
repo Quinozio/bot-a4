@@ -17,12 +17,13 @@
     "a": "a",
     "e": "e"
   },
-  
+
   "menu": {
     "menu": "🔎 Menu",
     "back": "◀️ Indietro",
     "profilazione": {
       "start": "Per iniziare, seleziona la tua categoria: ",
+      "startSettings": "Seleziona la tua categoria: ",
       "button": { "leggero": "🚗 Mezzo leggero", "pesante": "🚛 Mezzo pesante" }
     },
     "start": {
@@ -33,7 +34,7 @@
         "sos": "🆘 SOS",
         "mancatiPagamenti": "💸 Mancati pagamenti",
         "cantieri": "🏗️ Cantieri alta velocità",
-        "infoCantieri": "ℹ️ Info cantieri",
+        "infoCantieri": "ℹ️ Programmazione cantieri AV/AC",
         "servizi": "⛽️ Servizi",
         "settings": "⚙️ Impostazioni"
       }
@@ -44,7 +45,8 @@
     "settings": {
       "start": "Ecco le impostazioni:",
       "button": {
-        "changeLanguage": "🇮🇹 Cambia lingua"
+        "changeLanguage": "🇮🇹 Cambia lingua",
+        "sceltaMezzo": "🚗 Scelta mezzo"
       }
     },
     "services": {

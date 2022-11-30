@@ -8,6 +8,7 @@ import { initWebcamMenu } from "./webcam.menu";
 import { SETTINGS_MENU_FILTERS } from "../const/settings-menu.filters";
 import { initStartMenu } from "./start.menu";
 import { initChangeLanguageMenu } from "./change-language.menu";
+import { initProfilazioneMenu } from "./profilazione.menu";
 
 export const initSettingsMenu = (ctx: CurrentCtx) => {
   new RegularMenu<CurrentCtx, MenuAction>({
@@ -21,6 +22,8 @@ export const initSettingsMenu = (ctx: CurrentCtx) => {
       switch (state) {
         case MenuAction.CHANGE_LANGUAGE:
           return initChangeLanguageMenu(changeCtx);
+        case MenuAction.START_PROFILAZIONE:
+          return initProfilazioneMenu(changeCtx);
         case MenuAction.MENU:
           return initStartMenu(changeCtx);
       }

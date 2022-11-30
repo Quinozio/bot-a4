@@ -5,10 +5,10 @@ import { MenuAction } from "../interfaces/commands.models";
 import { CurrentCtx } from "../interfaces/context.models";
 import { initStartMenu } from "./start.menu";
 
-export const initProfilazioneMenu = (ctx: CurrentCtx, fn?: any) => {
+export const initProfilazioneMenu = (ctx: CurrentCtx, isFromStart?: boolean) => {
   new RegularMenu<CurrentCtx, MenuAction>({
-    action: MenuAction.MENU,
-    message: "menu.profilazione.start",
+    action: MenuAction.START_PROFILAZIONE,
+    message: isFromStart ? "menu.profilazione.start": "menu.profilazione.startSettings",
     filters: PROFILAZIONE_MENU_FILTERS,
     replaceable: true,
     menuGetter: (menuCtx) => menuCtx.session.keyboardMenu,

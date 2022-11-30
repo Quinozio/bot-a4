@@ -17,7 +17,7 @@ export const startCommand = async (ctx: CurrentCtx) => {
           "INSERT INTO user VALUES (?,?)",
           [userId, true],
           (err: string, row: any) => {
-            return initProfilazioneMenu(ctx as any);
+            return initProfilazioneMenu(ctx as any, true);
           }
         );
       } else {

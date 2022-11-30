@@ -21,6 +21,7 @@ import { Database } from "sqlite3";
 import { startCommand } from "./commands/start.command";
 import { initCantieriMenu } from "./menu/cantieri.menu";
 import { adminIds } from "./utils/admin.utils";
+import { initProfilazioneMenu } from "./menu/profilazione.menu";
 
 dotenv.config();
 
@@ -39,7 +40,7 @@ const db = new Database("db");
 
 const createDatabase = () => {
   db.serialize(() => {
-    db.run("CREATE TABLE IF NOT EXISTS user (userId TEXT, notifiche INTEGER)");
+    db.run("CREATE TABLE IF NOT EXISTS user (userId TEXT UNIQUE, notifiche INTEGER)");
     global.database = db;
   });
 };
@@ -59,7 +60,7 @@ bot.use(GenericMenu.middleware());
 bot.telegram.setMyCommands(commands);
 
 bot.command(MenuAction.START, startCommand as any);
-bot.command(MenuAction.MENU, initStartMenu as any);
+bot.command(MenuAction.MENU, startCommand as any);
 bot.command(MenuAction.SETTINGS, initSettingsMenu as any);
 
 // bot.action(
@@ -119,6 +120,13 @@ bot.action(
   )
 );
 bot.action(
+  new RegExp(MenuAction.START_PROFILAZIONE),
+  GenericMenu.onAction(
+    (ctx: any) => ctx.session.keyboardMenu,
+    initProfilazioneMenu as any
+  )
+);
+bot.action(
   new RegExp(MenuAction.CHANGE_LANGUAGE),
   GenericMenu.onAction(
     (ctx: any) => ctx.session.keyboardMenu,
@@ -135,6 +143,15 @@ bot.command(
   Composer.acl(adminIds, (ctx) => {
     db.run("DROP TABLE IF EXISTS user");
     createDatabase();
+  })
+);
+bot.command(
+  "readDatabase",
+  Composer.acl(adminIds, (ctx) => {
+    db.each("SELECT * FROM user", (err: string, row: any) => {
+      console.log(row);
+      ctx.sendMessage("User: " + row.userId);
+    });
   })
 );
 bot.launch();
