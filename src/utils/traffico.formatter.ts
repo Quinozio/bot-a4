@@ -37,7 +37,15 @@ export const formatEvent = (ctx: CurrentCtx, event: IEvent) => {
   const hasInfoKm = KM_INIZ || KM_FIN;
 
   const heading = `${emoticon} ${ctx.i18n.t("traffico.infoviabilita")}`;
-  const km = hasInfoKm ? `km ${KM_INIZ} - ${KM_FIN}\n` : "";
+
+  const numberFormatter = new Intl.NumberFormat("it-IT", {
+    maximumFractionDigits: 3,
+    minimumFractionDigits: 3,
+  }); 
+
+  const kmIniziale = numberFormatter.format(KM_INIZ).replace(",", "+");
+  const kmFinale = numberFormatter.format(KM_FIN).replace(",", "+");
+  const km = hasInfoKm ? `km ${kmIniziale} - ${kmFinale}\n` : "";
 
   let direction = hasInfoKm ? `${ctx.i18n.t("traffico.direzione")}` : "";
   if (direction) {
@@ -64,10 +72,9 @@ export const formatEvent = (ctx: CurrentCtx, event: IEvent) => {
       break;
     }
     case EventType.TRAFFICO: {
+      const causa = CAUSA ? `${ctx.i18n.t("traffico.causa")} ${CAUSA}` : "";
       const ora = `${ctx.i18n.t("traffico.ora")} ${getTime(DATAORA)} - `;
-      const dettaglio = `${DETTAGLIO.SOTTOTIPO} ${geo} ${ctx.i18n.t(
-        "traffico.causa"
-      )} ${CAUSA} `;
+      const dettaglio = `${DETTAGLIO.SOTTOTIPO} ${geo} ${causa} `;
       description = ora + dettaglio;
       break;
     }
@@ -78,9 +85,9 @@ export const formatEvent = (ctx: CurrentCtx, event: IEvent) => {
       const alle = `${ctx.i18n.t("traffico.alle")} ${getTime(
         DATA_ORA_APERTURA
       )} ${ctx.i18n.t("traffico.del")} ${getDate(DATA_ORA_APERTURA)} `;
-      const dettaglio = `${ctx.i18n.t("traffico.chiusura")} ${geo} ${ctx.i18n.t(
-        "traffico.causa"
-      )} ${CAUSALE}`;
+
+      const causa = CAUSALE ? `${ctx.i18n.t("traffico.causa")} ${CAUSALE}` : "";
+      const dettaglio = `${ctx.i18n.t("traffico.chiusura")} ${geo} ${causa}`;
       description = dalle + alle + dettaglio;
       break;
     }

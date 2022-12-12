@@ -25,6 +25,12 @@ adminScene.action("No", async (ctx) => {
   return ctx.scene.enter("adminScene");
 });
 adminScene.action("esci", async (ctx) => {
+  if (ctx.chat?.id) {
+    ctx.telegram.sendMessage(
+      ctx.chat.id,
+      "Utilizza il comando /menu per ricominciare."
+    );
+  }
   return ctx.scene.leave();
 });
 

@@ -35,11 +35,11 @@
     "start": {
       "start": "Ecco il menù principale: seleziona una voce per avere le informazioni che desideri",
       "button": {
-        "infoTraffico": "🛣 Info traffico",
+        "infoTraffico": "🛣 Infoviabilità",
         "webcam": "🎥 Webcam",
         "sos": "🆘 SOS",
         "mancatiPagamenti": "💸 Mancati pagamenti",
-        "cantieri": "🏗️ Cantieri alta velocità",
+        "cantieri": "🏗️ Infocantieri",
         "infoCantieri": "ℹ️ Programmazione cantieri AV/AC",
         "servizi": "⛽️ Servizi",
         "settings": "⚙️ Impostazioni"

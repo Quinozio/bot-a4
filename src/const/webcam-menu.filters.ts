@@ -15,18 +15,21 @@ export const WEBCAM_MENU_FILTERS: (
   console.log(json);
 
   const listWebcamAttive = [
+    "TVCIO221-Ovest",
     "TVCIO228-Ovest",
     "TVCIO244-Ovest",
     "TVCIE251-Est",
     "TVCIO259-Ovest",
     "TVCIO270-Ovest",
+    "TVCIO276-Ovest",
+    "TVCIO279-Ovest",
     "TVCIE291-Est",
     "TVCIE303-Est",
     "TVCIO316-Ovest",
     "TVCIE328-Est",
     "TVCIE336-Est",
-    "TVCIE336-Est",
-
+    "TVCIO356-Ovest",
+    "TVCIE363-Est",
     "TVCIN088-Sud",
     "TVCIS061-Sud",
     "TVCIN053-Nord",

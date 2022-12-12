@@ -42,7 +42,7 @@ const db = new Database("db");
 const createDatabase = () => {
   db.serialize(() => {
     db.run(
-      "CREATE TABLE IF NOT EXISTS user (userId TEXT UNIQUE, notifiche INTEGER)"
+      "CREATE TABLE IF NOT EXISTS user (userId TEXT, notifiche INTEGER)"
     );
     global.database = db;
   });
@@ -63,7 +63,7 @@ bot.use(GenericMenu.middleware());
 bot.telegram.setMyCommands(commands);
 
 bot.command(MenuAction.START, startCommand as any);
-bot.command(MenuAction.MENU, startCommand as any);
+bot.command(MenuAction.MENU, initStartMenu as any);
 bot.command(MenuAction.SETTINGS, initSettingsMenu as any);
 
 // bot.action(
