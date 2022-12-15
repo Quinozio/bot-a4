@@ -23,6 +23,11 @@ import { initCantieriMenu } from "./menu/cantieri.menu";
 import { adminIds } from "./utils/admin.utils";
 import { initProfilazioneMenu } from "./menu/profilazione.menu";
 import { initWebcamDirectionMenu } from "./menu/webcam-direction.menu";
+import {
+  attivaNotifiche,
+  initNotificheMenu,
+  silenziaNotifiche,
+} from "./menu/notifiche.menu";
 
 dotenv.config();
 
@@ -42,7 +47,7 @@ const db = new Database("db");
 const createDatabase = () => {
   db.serialize(() => {
     db.run(
-      "CREATE TABLE IF NOT EXISTS user (userId TEXT, notifiche INTEGER)"
+      "CREATE TABLE IF NOT EXISTS user (userId TEXT UNIQUE, notifiche INTEGER)"
     );
     global.database = db;
   });
@@ -65,6 +70,20 @@ bot.telegram.setMyCommands(commands);
 bot.command(MenuAction.START, startCommand as any);
 bot.command(MenuAction.MENU, initStartMenu as any);
 bot.command(MenuAction.SETTINGS, initSettingsMenu as any);
+bot.command(MenuAction.ATTIVA_NOTIFICHE, (ctx) => {
+  let userId: string = ctx.chat.id.toString();
+  if (userId) {
+    userId = userId.toString().replace(".0", "");
+  }
+  attivaNotifiche(userId, ctx as any);
+});
+bot.command(MenuAction.SILENZIA_NOTIFICHE, (ctx) => {
+  let userId: string = ctx.chat.id.toString();
+  if (userId) {
+    userId = userId.toString().replace(".0", "");
+  }
+  silenziaNotifiche(userId, ctx as any);
+});
 
 // bot.action(
 //   new RegExp(MenuAction.START),
@@ -134,6 +153,13 @@ bot.action(
   GenericMenu.onAction(
     (ctx: any) => ctx.session.keyboardMenu,
     initProfilazioneMenu as any
+  )
+);
+bot.action(
+  new RegExp(MenuAction.GESTIONE_NOTIFICHE),
+  GenericMenu.onAction(
+    (ctx: any) => ctx.session.keyboardMenu,
+    initNotificheMenu as any
   )
 );
 bot.action(

@@ -28,6 +28,9 @@ export const commands: BotCommand[] = [
 export enum MenuAction {
   START = "start",
   MENU = "menu",
+  GESTIONE_NOTIFICHE = "gestioneNotifiche",
+  SILENZIA_NOTIFICHE = "silenzia_notifiche",
+  ATTIVA_NOTIFICHE = "attiva_notifiche",
   START_PROFILAZIONE = "startProfilazione",
   PROFILAZIONE_LEGGERO = "profilazioneLeggero",
   PROFILAZIONE_PESANTE = "profilazionePesante",

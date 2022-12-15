@@ -14,29 +14,20 @@ export const WEBCAM_MENU_FILTERS: (
   const json: IWebcam[] = await res.json();
   console.log(json);
 
-  const listWebcamAttive = [
-    "TVCIO221-Ovest",
-    "TVCIO228-Ovest",
-    "TVCIO244-Ovest",
-    "TVCIE251-Est",
-    "TVCIO259-Ovest",
-    "TVCIO270-Ovest",
-    "TVCIO276-Ovest",
-    "TVCIO279-Ovest",
-    "TVCIE291-Est",
-    "TVCIE303-Est",
-    "TVCIO316-Ovest",
-    "TVCIE328-Est",
-    "TVCIE336-Est",
-    "TVCIO356-Ovest",
-    "TVCIE363-Est",
-    "TVCIN088-Sud",
-    "TVCIS061-Sud",
-    "TVCIN053-Nord",
-  ];
-  const webcams = json.filter((item) => listWebcamAttive.includes(item.id));
+  const listWebcamAttive = new Map()
+    .set("TVCIO228-Ovest", "Brescia Est")
+    .set("TVCIO244-Ovest", "Desenzano (BS)")
+    .set("TVCIE251-Est", "Sirmione (BS)")
+    .set("TVCIO259-Ovest", "Peschiera (VR)")
+    .set("TVCIO270-Ovest", "Sommacampagna (VR)")
+    .set("TVCIE291-Est", "Verona Est")
+    .set("TVCIE303-Est", "San Bonifacio (VR)")
+    .set("TVCIO316-Ovest", "Montebello-Montecchio (VI)")
+    .set("TVCIE328-Est", "Vicenza Ovest")
+    .set("TVCIE336-Est", "Vicenza Est");
+  const webcams = json.filter((item) => listWebcamAttive.has(item.id));
   const buttons = webcams.map(
-    (item) => new KeyboardButton(item.id, item.url) as any
+    (item) => new KeyboardButton(listWebcamAttive.get(item.id), item.url) as any
   );
   const rowSize = 2;
   const rows = [];
@@ -44,7 +35,7 @@ export const WEBCAM_MENU_FILTERS: (
     const chunk = buttons.slice(i, i + rowSize);
     rows.push(chunk);
   }
-  rows.push([new KeyboardButton("menu.back", MenuAction.BACK)]);
+  // rows.push([new KeyboardButton("menu.back", MenuAction.BACK)]);
   rows.push([new KeyboardButton("menu.menu", MenuAction.MENU)]);
   return rows;
 };

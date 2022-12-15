@@ -11,6 +11,7 @@ import { initTrafficoDirectionMenu } from "./traffico-direction.menu";
 import { initServiceSectionsMenu } from "./service-sections.menu";
 import { initCantieriMenu } from "./cantieri.menu";
 import { initWebcamDirectionMenu } from "./webcam-direction.menu";
+import { initNotificheMenu } from "./notifiche.menu";
 
 export const initStartMenu = (ctx: CurrentCtx, fn?: any, message?: string) => {
   new RegularMenu<CurrentCtx, MenuAction>({
@@ -23,7 +24,8 @@ export const initStartMenu = (ctx: CurrentCtx, fn?: any, message?: string) => {
     onChange(changeCtx, state) {
       switch (state) {
         case MenuAction.WEBCAM_DIRECTION:
-          return initWebcamDirectionMenu(changeCtx);
+          changeCtx.session.webcamDirectionSelected = "A4AAA";
+          return initWebcamMenu(changeCtx);
         case MenuAction.SETTINGS:
           return initSettingsMenu(changeCtx);
         case MenuAction.SERVICES:
@@ -32,6 +34,13 @@ export const initStartMenu = (ctx: CurrentCtx, fn?: any, message?: string) => {
           return initCantieriMenu(changeCtx);
         case MenuAction.INFO_TRAFFICO:
           return initTrafficoDirectionMenu(changeCtx);
+        case MenuAction.GESTIONE_NOTIFICHE:
+          return initNotificheMenu(changeCtx);
+        case MenuAction.SOS:
+          console.log(changeCtx.chat, ctx.chat);
+          const message = ctx.i18n.t("sos.testo");
+          ctx.replyWithMarkdownV2(message);
+        // return initStartMenu(changeCtx);
       }
     },
   }).sendMenu(ctx);
