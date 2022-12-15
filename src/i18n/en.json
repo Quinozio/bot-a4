@@ -1,36 +1,95 @@
 {
+  "traffico": {
+    "infoviabilita": "Infoviabilità",
+    "direzione": "Direzione:",
+    "entrambeDirezioni": "entrambe le direzioni",
+    "ora": "Ora",
+    "siSegnala": "Si segnala",
+    "dalle": "Dalle ore",
+    "alle": "alle ore",
+    "del": "del",
+    "chiusura": "chiusura",
+    "segnalaCantiere": "si segnala cantiere",
+    "mobile": "mobile ",
+    "causaIncidente": "causa incidente ",
+    "causa": "causa",
+    "tra": "tra",
+    "a": "a",
+    "e": "e"
+  },
+
+  "sos": {
+    "testo": "🆘 EMERGENZE: 112 \n\nAssistenza clienti: chiama il numero verde 800 012812\nInformazioni viabilità e meteo: chiama “Viaggiando” 800 996099\n\nPer ulteriori informazioni visita il nostro sito [InViaggio](https://inviaggio\\.autobspd\\.it/)"
+  },
   "menu": {
     "menu": "🔎 Menu",
     "back": "◀️ Indietro",
-    "start": {
-      "start": "Here is the menu for you:",
+    "profilazione": {
+      "start": "Per iniziare, seleziona la tua categoria: ",
+      "startSettings": "Seleziona la tua categoria: ",
+      "button": { "leggero": "🚗 Mezzo leggero", "pesante": "🚚 Mezzo pesante" }
+    },
+    "notifiche": {
+      "start": "🔊 Seleziona la tua preferenza",
       "button": {
-        "infoTraffico": "🛣 Traffic info",
-        "webcam": "🎥 Webcam",
-        "sos": "🆘 SOS",
-        "mancatiPagamenti": "💸 Mancati pagamenti",
-        "cantieri": "🏗️ Infocantieri",
-        "servizi": "⛽️ Services",
-        "settings": "⚙️ Settings"
+        "attiva": "🔔 Attiva notifiche",
+        "silenzia": "🔕 Silenzia notifiche"
       }
     },
-    "services": {
-      "start": "Ecco le aree di servizio: selezionane una per conoscere i servizi che offre."
+    "webcamDirection": {
+      "button": {
+        "a4": "A4",
+        "a31": "A31"
+      }
+    },
+    "start": {
+      "start": "Ecco il menù principale: seleziona una voce per avere le informazioni che desideri",
+      "button": {
+        "infoTraffico": "🛣 Infoviabilità",
+        "webcam": "🎥 Webcam",
+        "sos": "📞 Contatti",
+        "mancatiPagamenti": "💸 Mancati pagamenti",
+        "cantieri": "🚧 Infocantieri",
+        "infoCantieri": "➕ Scopri di più",
+        "servizi": "⛽️ Servizi",
+        "settings": "⚙️ Impostazioni"
+      }
     },
     "webcam": {
       "start": "Scegli la webcam che vuoi visualizzare"
     },
     "settings": {
-      "start": "Here are the settings:",
+      "start": "Ecco le impostazioni:",
       "button": {
-        "changeLanguage": "🇬🇧 Change language"
+        "changeLanguage": "🇮🇹 Cambia lingua",
+        "sceltaMezzo": "🚗 Cambia categoria",
+        "gestioneNotifiche": "🔊 Gestione notifiche"
+      }
+    },
+    "services": {
+      "start": "Ecco le aree di servizio: selezionane una per conoscere i servizi che offre.",
+      "button": {
+        "aree": "🚾 Aree di servizio",
+        "ricarica": "🔋 Colonnine di ricarica",
+        "metano": "⛽ GPL/Metano",
+        "camper": "🚙 Camper"
+      }
+    },
+    "serviceDetail": {
+      "start": "Ecco i servizi"
+    },
+    "trafficoDirection": {
+      "start": "Seleziona la tua direzione di marcia: Ovest (direzione Milano) o Est (direzione Venezia).",
+      "button": {
+        "ovest": "Ovest ⬅️",
+        "est": "Est ➡️"
       }
     },
     "changeLanguage": {
-      "start": "Change the language:",
-      "success": "Language changed to 🇬🇧 English",
+      "start": "Cambia la lingua:",
+      "success": "Lingua cambiata in 🇮🇹 Italiano",
       "button": {
-        "it": "🇮🇹 Italian",
+        "it": "🇮🇹 Italiano",
         "en": "🇬🇧 English"
       }
     }
