@@ -7,17 +7,24 @@ import { initSettingsMenu } from "./settings.menu";
 import { initStartMenu } from "./start.menu";
 
 export const attivaNotifiche = async (userId: string, ctx: CurrentCtx) => {
-  global.database.run(
-    `UPDATE user SET notifiche = 1 WHERE userId = ${userId}`,
-    async (err: string, row: any) => {
-      if (ctx.session.keyboardMenu.messageId) {
-        try {
-          await ctx.deleteMessage(ctx.session.keyboardMenu.messageId);
-        } catch (e) {}
+  global.database.get(
+    `SELECT userId FROM user WHERE userId = ${userId}`,
+    (err: string, row: any) => {
+      console.log("ROW: ", row);
+      let sql = `UPDATE user SET notifiche = 1 WHERE userId = ${userId}`;
+      if (!row) {
+        sql = `INSERT INTO user VALUES (${userId},${1})`;
       }
+      global.database.run(sql, async (err: string, row: any) => {
+        if (ctx.session.keyboardMenu.messageId) {
+          try {
+            await ctx.deleteMessage(ctx.session.keyboardMenu.messageId);
+          } catch (e) {}
+        }
 
-      await ctx.reply("Notifiche attivate.");
-      return initStartMenu(ctx);
+        await ctx.reply("Notifiche attivate.");
+        return initStartMenu(ctx);
+      });
     }
   );
 };

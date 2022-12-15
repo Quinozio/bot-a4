@@ -79,10 +79,10 @@
       "start": "Ecco i servizi"
     },
     "trafficoDirection": {
-      "start": "Seleziona la tua direzione di marcia: Ovest (verso Milano) o Est (verso Venezia).",
+      "start": "Seleziona la tua direzione di marcia: Ovest (direzione Milano) o Est (direzione Venezia).",
       "button": {
-        "ovest": "Ovest (⬅️)",
-        "est": "Est (➡️)"
+        "ovest": "Ovest ⬅️",
+        "est": "Est ➡️"
       }
     },
     "changeLanguage": {
