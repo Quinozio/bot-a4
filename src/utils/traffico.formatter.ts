@@ -169,9 +169,9 @@ const getInfoGeo = (
 ) => {
   const { casIniziale, casFinale } = getInfoCaselli(KM_INIZ, KM_FIN, direzione);
   if (casFinale && casIniziale !== casFinale) {
-    return `${ctx.i18n.t("traffico.tra")} ${capitalizeWords(
-      casIniziale
-    )} ${ctx.i18n.t("traffico.e")} ${capitalizeWords(casFinale)}`;
+    return `${ctx.i18n.t("traffico.tra")} ${casIniziale} ${ctx.i18n.t(
+      "traffico.e"
+    )} ${casFinale}`;
   }
-  return `${ctx.i18n.t("traffico.a")} ${capitalizeWords(casIniziale)}`;
+  return `${ctx.i18n.t("traffico.a")} ${casIniziale}`;
 };
