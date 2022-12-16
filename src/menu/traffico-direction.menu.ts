@@ -26,7 +26,7 @@ export const initTrafficoDirectionMenu = (ctx: CurrentCtx) => {
         } else {
           events = await getTrafficoEst();
         }
-        console.log(events);
+        // console.log(events);
         await ctx.reply("➖➖➖➖➖➖➖➖➖➖\n");
         const messages = formatEvents(ctx, events);
         messages?.forEach(async (message) => {

@@ -8,6 +8,7 @@ export const eventiEmoticon = {
   [EventType.METEO]: "🚗",
   [EventType.TRAFFICO]: "🚗",
   [EventType.INCIDENTE]: "🚗",
+  [EventType.MESSAGGIO_PMV]: "🚧",
   [EventType.CHIUSURA]: "🚧",
   [EventType.CANTIERE]: "🚧",
 };
@@ -41,7 +42,7 @@ export const formatEvent = (ctx: CurrentCtx, event: IEvent) => {
   const numberFormatter = new Intl.NumberFormat("it-IT", {
     maximumFractionDigits: 3,
     minimumFractionDigits: 3,
-  }); 
+  });
 
   const kmIniziale = numberFormatter.format(KM_INIZ).replace(",", "+");
   const kmFinale = numberFormatter.format(KM_FIN).replace(",", "+");
@@ -59,7 +60,7 @@ export const formatEvent = (ctx: CurrentCtx, event: IEvent) => {
   let description = "";
 
   const geo = hasInfoKm
-    ? getInfoGeo(ctx, KM_INIZ, KM_FIN)
+    ? getInfoGeo(ctx, KM_INIZ, KM_FIN, DIR)
     : `${ctx.i18n.t("traffico.a")} ${DESCRIZIONE_GEO}`;
 
   switch (TIPO) {
@@ -78,17 +79,17 @@ export const formatEvent = (ctx: CurrentCtx, event: IEvent) => {
       description = ora + dettaglio;
       break;
     }
-    case EventType.CHIUSURA: {
+    case EventType.MESSAGGIO_PMV: {
       const dalle = `${ctx.i18n.t("traffico.dalle")} ${getTime(
-        DATA_ORA_CHIUSURA
-      )} ${ctx.i18n.t("traffico.del")} ${getDate(DATA_ORA_CHIUSURA)} `;
+        INIZIO
+      )} ${ctx.i18n.t("traffico.del")} ${getDate(INIZIO)} `;
       const alle = `${ctx.i18n.t("traffico.alle")} ${getTime(
-        DATA_ORA_APERTURA
-      )} ${ctx.i18n.t("traffico.del")} ${getDate(DATA_ORA_APERTURA)} `;
+        FINE
+      )} ${ctx.i18n.t("traffico.del")} ${getDate(FINE)} `;
 
       const causa = CAUSALE ? `${ctx.i18n.t("traffico.causa")} ${CAUSALE}` : "";
       const dettaglio = `${ctx.i18n.t("traffico.chiusura")} ${geo} ${causa}`;
-      description = dalle + alle + dettaglio;
+      description = dalle + (FINE ? alle : "") + dettaglio;
       break;
     }
     case EventType.CANTIERE: {
@@ -120,58 +121,53 @@ export const formatEvent = (ctx: CurrentCtx, event: IEvent) => {
   return `${heading}\n\n${km}${direction}${description}`;
 };
 
-export const getInfoCaselli = (KM_INIZ: number, KM_FIN: number) => {
+export const getInfoCaselli = (
+  KM_INIZ: number,
+  KM_FIN: number,
+  direzione: string
+) => {
   let casIniziale = "";
   let casFinale = "";
 
-  let kmIniziale = parseInt("" + KM_INIZ);
-  let kmFinale = parseInt("" + KM_FIN);
-  let isOpposite = false;
-  if (KM_INIZ > KM_FIN) {
-    isOpposite = true;
-    kmIniziale = kmFinale;
-    kmFinale = parseInt("" + KM_INIZ);
-  }
-
-  CASELLI_KM.forEach((km, index) => {
-    if (index > 0) {
-      const kmIdPrecedente = Object.keys(CASELLI_KM[index - 1])[0];
-      const kmPrecedente = parseInt(kmIdPrecedente);
-      const kmId = Object.keys(km)[0];
-      const kmAttuale = parseInt(kmId);
-
-      if (
-        kmIniziale >= kmPrecedente &&
-        kmIniziale <= kmAttuale &&
-        (isOpposite ? true : !casIniziale)
-      ) {
-        console.log(kmIniziale, kmPrecedente, kmAttuale);
-        casIniziale = isOpposite
-          ? CASELLI_KM[index - 1][kmIdPrecedente]
-          : km[kmId];
-      }
-      if (
-        kmFinale >= kmPrecedente &&
-        kmFinale <= kmAttuale &&
-        (isOpposite ? true : !casFinale)
-      ) {
-        casFinale = isOpposite
-          ? CASELLI_KM[index - 1][kmIdPrecedente]
-          : km[kmId];
-      }
+  CASELLI_KM.forEach((caselloInfo) => {
+    if (
+      KM_INIZ >= caselloInfo.inizio &&
+      KM_INIZ <= caselloInfo.fine &&
+      !casIniziale
+    ) {
+      casIniziale = caselloInfo.casello;
+    }
+    if (
+      KM_FIN >= caselloInfo.inizio &&
+      KM_FIN <= caselloInfo.fine &&
+      !casFinale
+    ) {
+      casFinale = caselloInfo.casello;
     }
   });
-  const casInizialeCopy = casIniziale;
-  const casFinaleCopy = casFinale;
-  casIniziale = isOpposite ? casFinaleCopy : casInizialeCopy;
-  casFinale = isOpposite ? casInizialeCopy : casFinaleCopy;
+  if (casIniziale === casFinale) {
+    const caselloIndex = CASELLI_KM.findIndex(
+      (cas) => cas.casello === casIniziale
+    );
+    const newCasello = CASELLI_KM[caselloIndex - 1].casello;
+    if (direzione === "VENEZ") {
+      casIniziale = newCasello;
+    } else {
+      casFinale = newCasello;
+    }
+  }
   return {
-    casIniziale: capitalizeWords(casIniziale),
-    casFinale: capitalizeWords(casFinale),
+    casIniziale,
+    casFinale,
   };
 };
-const getInfoGeo = (ctx: CurrentCtx, KM_INIZ: number, KM_FIN: number) => {
-  const { casIniziale, casFinale } = getInfoCaselli(KM_INIZ, KM_FIN);
+const getInfoGeo = (
+  ctx: CurrentCtx,
+  KM_INIZ: number,
+  KM_FIN: number,
+  direzione: string
+) => {
+  const { casIniziale, casFinale } = getInfoCaselli(KM_INIZ, KM_FIN, direzione);
   if (casFinale && casIniziale !== casFinale) {
     return `${ctx.i18n.t("traffico.tra")} ${capitalizeWords(
       casIniziale

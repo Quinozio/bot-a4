@@ -26,11 +26,11 @@ export const initCantieriMenu = (ctx: CurrentCtx) => {
         } else {
           events = await getTrafficoEst();
         }
-        console.log(events);
         events = events.filter(
           (event) =>
             event.TIPO === EventType.CANTIERE ||
-            event.TIPO === EventType.CHIUSURA
+            (event.TIPO === EventType.MESSAGGIO_PMV &&
+              event.DETTAGLIO?.TIPOLOGIA === "CHIUSURA")
         );
         await ctx.reply("➖➖➖➖➖➖➖➖➖➖\n");
         const messages = formatEvents(ctx, events);

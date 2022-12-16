@@ -8,6 +8,7 @@ test("should retrieve caselli information", () => {
     {
       iniz: 228.7,
       fin: 244.4,
+      direzione: "VENEZ",
       expected: {
         casIniziale: "Brescia Est",
         casFinale: "Desenzano",
@@ -15,24 +16,57 @@ test("should retrieve caselli information", () => {
     },
     {
       iniz: 251.5,
-      fin: 244.3,
+      fin: 244.35,
+      direzione: "VENEZ",
       expected: {
         casIniziale: "Sirmione",
         casFinale: "Desenzano",
       },
     },
-    // {
-    //   iniz: 280.7,
-    //   fin: 290.0,
-    //   expected: {
-    //     casIniziale: "Verona Est",
-    //     casFinale: "Verona Sud",
-    //   },
-    // },
+    {
+      iniz: 264.2,
+      fin: 265.8,
+      direzione: "VENEZ",
+      expected: {
+        casIniziale: "Peschiera del Garda",
+        casFinale: "Sommacampagna",
+      },
+    },
+    {
+      iniz: 317,
+      fin: 320,
+      direzione: "VENEZ",
+      expected: {
+        casIniziale: "Montebello",
+        casFinale: "Montecchio",
+      },
+    },
+    {
+      iniz: 302.805,
+      fin: 311.8,
+      direzione: "VENEZ",
+      expected: {
+        casIniziale: "Soave S.Bonifacio",
+        casFinale: "Montebello",
+      },
+    },
+    {
+      iniz: 280.7,
+      fin: 290.0,
+      direzione: "MILAN",
+      expected: {
+        casIniziale: "Verona Est",
+        casFinale: "Verona Sud",
+      },
+    },
   ];
 
   tests.forEach((test) => {
-    const { casIniziale, casFinale } = getInfoCaselli(test.iniz, test.fin);
+    const { casIniziale, casFinale } = getInfoCaselli(
+      test.iniz,
+      test.fin,
+      test.direzione
+    );
     expect(casIniziale).toBe(test.expected.casIniziale);
     expect(casFinale).toBe(test.expected.casFinale);
   });

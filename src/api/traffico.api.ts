@@ -9,9 +9,7 @@ export const getEventsOnStreet = async () => {
 };
 export const getEvents = async (direction: DirectionTo) => {
   const eventsOnStreet = await getEventsOnStreet();
-  return eventsOnStreet.events.filter(
-    (event) => event.DIR === direction && !event.ID_PADRE
-  );
+  return eventsOnStreet.events.filter((event) => event.DIR === direction);
 };
 export const getTrafficoOvest = async () => getEvents(DirectionTo.MILAN);
 export const getTrafficoEst = () => getEvents(DirectionTo.VENEZ);

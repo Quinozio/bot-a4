@@ -12,8 +12,6 @@ export const WEBCAM_MENU_FILTERS: (
     `${process.env.API_URL}/o/map-rest/webcam/${direction}`
   );
   const json: IWebcam[] = await res.json();
-  console.log(json);
-
   const listWebcamAttive = new Map()
     .set("TVCIO228-Ovest", "Brescia Est")
     .set("TVCIO244-Ovest", "Desenzano (BS)")

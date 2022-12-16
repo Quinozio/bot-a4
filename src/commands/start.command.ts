@@ -4,6 +4,12 @@ import { initStartMenu } from "../menu/start.menu";
 
 export const startCommand = async (ctx: CurrentCtx) => {
   console.log(ctx.message.chat.id);
+  if (ctx.session.keyboardMenu.messageId) {
+    try {
+      await ctx.deleteMessage(ctx.session.keyboardMenu.messageId);
+    } catch (e) {}
+  }
+
   let userId: string = ctx.message.chat.id;
   if (userId) {
     userId = userId.toString().replace(".0", "");

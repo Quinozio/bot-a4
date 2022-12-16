@@ -20,6 +20,7 @@ export enum EventType {
   "TRAFFICO" = "TRAFFICO",
   "CHIUSURA" = "CHIUSURA",
   "CANTIERE" = "CANTIERE",
+  "MESSAGGIO_PMV" = "MESSAGGIO_PMV",
   "INCIDENTE" = "INCIDENTE",
 }
 export interface IEvent {
