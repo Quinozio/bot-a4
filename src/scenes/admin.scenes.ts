@@ -1,4 +1,5 @@
 import { Markup, Scenes } from "telegraf";
+import { Message } from "telegraf/typings/core/types/typegram";
 
 import { CurrentCtx, User } from "../interfaces/context.models";
 
@@ -13,9 +14,30 @@ adminScene.action("Si", async (ctx) => {
   global.database.each(
     "SELECT userId FROM user WHERE notifiche = 1",
     async (err: string, row: User) => {
-      const message = await ctx.telegram.sendMessage(row.userId, messageToSend);
-      ctx.telegram.unpinAllChatMessages(message.chat.id);
-      ctx.telegram.pinChatMessage(row.userId, message.message_id);
+      if (messageToSend) {
+        if ("text" in messageToSend) {
+          await ctx.telegram.sendMessage(row.userId, messageToSend, {
+            parse_mode: "HTML",
+          });
+        }
+        if ("photo" in messageToSend) {
+          await ctx.telegram.sendPhoto(
+            row.userId,
+            messageToSend.photo[0].file_id,
+            { caption: messageToSend.caption }
+          );
+        }
+        if ("video" in messageToSend) {
+          await ctx.telegram.sendVideo(
+            row.userId,
+            messageToSend.video.file_id,
+            { caption: messageToSend.caption }
+          );
+        }
+      }
+
+      // ctx.telegram.unpinAllChatMessages(message.chat.id);
+      // ctx.telegram.pinChatMessage(row.userId, message.message_id);
     }
   );
   await ctx.reply("Messaggio inviato!");
@@ -34,10 +56,11 @@ adminScene.action("esci", async (ctx) => {
   return ctx.scene.leave();
 });
 
-let messageToSend = "";
-adminScene.on("text", async (ctx) => {
-  if (ctx?.message?.text) {
-    messageToSend = ctx?.message?.text;
+let messageToSend: Message | undefined = undefined;
+adminScene.on(["photo", "video", "text"], async (ctx) => {
+  console.log(ctx?.message);
+  if (ctx.message) {
+    messageToSend = ctx?.message;
     return await ctx.reply(
       "Sei sicuro di voler inviare questo messaggio a tutti gli utenti?",
       Markup.inlineKeyboard([

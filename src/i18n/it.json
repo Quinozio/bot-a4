@@ -19,7 +19,8 @@
   },
 
   "sos": {
-    "testo": "\\(🆘\\) EMERGENZE: *112* \n\nAssistenza clienti: chiama il numero verde \\(📞\\) *800 012812*\n\nInformazioni viabilità: chiama “Viaggiando” \\(📞\\) *800 996099*\n\nPer ulteriori informazioni visita il nostro sito [InViaggio](https://inviaggio\\.autobspd\\.it/)"
+    "button": "Premi qui per tornare al menu principale",
+    "testo": "\\(🆘\\) EMERGENZE: *112* \n\nAssistenza clienti: chiama il numero verde 📞 *800 012812*\n\nInformazioni viabilità: chiama “Viaggiando” 📞 *800 996099*\n\nPer ulteriori informazioni visita il nostro sito [InViaggio](https://inviaggio\\.autobspd\\.it/)"
   },
   "menu": {
     "menu": "🔎 Menu",

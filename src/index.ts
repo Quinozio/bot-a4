@@ -4,7 +4,7 @@ import { Telegraf, Composer, Scenes } from "telegraf";
 import { I18n } from "@edjopato/telegraf-i18n";
 import { GenericMenu } from "@quino/telegraf-menu";
 import LocalSession from "telegraf-session-local";
-
+import { telegrafThrottler } from "telegraf-throttler";
 import { commands, MenuAction } from "./interfaces/commands.models";
 import { CurrentCtx } from "./interfaces/context.models";
 import { initStartMenu } from "./menu/start.menu";
@@ -32,6 +32,9 @@ import {
 dotenv.config();
 
 const bot = new Telegraf<CurrentCtx>(process.env.BOT_TOKEN ?? "");
+
+const throttler = telegrafThrottler();
+bot.use(throttler);
 
 const session = new LocalSession({
   database: process.env.DB_FOLDER + "local.db.json",
